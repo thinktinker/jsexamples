@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form action="">
+    <label for="txtInput">Please enter your 7 digit phone number:</label>
+    <input type="text" id="txtInput">
+    <button type="submit">submit</button>
+</form>
+
+<script>
+    const form = document.querySelector("form").addEventListener("submit", (event)=> {
+
+        event.preventDefault(); // prevents the submit button from its typical functionality
+
+        let result = document.getElementById("txtInput").value; // getting the input entered by the user
+        
+        if(isNaN(result))   // if the user does not submit numbers, prompt user with an alert 
+            return alert("You did not enter a number!!!"); 
+
+        if(result.length != 7) // if the user does not submit a 7-digit number, prompt user with an alert
+            return alert("please enter a 7-digit phone number");
+        
+        // if(isNaN(result) || result.length != 7)
+        //     return alert("Please enter a 7-digit number!"); 
+
+        // if the above condition passes, then we take the user
+        return alert("Thank you, we'll connect you shortly");
+    });
+</script>
+
+</body>
+</html>

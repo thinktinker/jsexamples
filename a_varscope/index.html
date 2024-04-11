@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable Scope</title>
+</head>
+<body>
+    
+    <script src="script.js"></script>
+    <script>
+
+        // the following e.g. will call for the global variable in index.js
+        // and print out a statement in the browser's console
+        console.log(globalMsg); // "Hello JavaScript Users" will be printed in the console
+        
+        // the following e.g. will NOT be printed as it's scoped locally in function greeting
+        console.log(localMsg);  // nothing will be printed
+        
+    </script>
+</body>
+</html>
