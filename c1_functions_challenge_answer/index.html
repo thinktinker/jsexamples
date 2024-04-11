@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- Bootstrap Styles -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+</head>
+<body>
+  <main class="d-flex justify-content-center ">
+    <form class="m-3 rounded-2 border border-secondary p-3 w-50">
+
+      <div class="form-floating mb-3">
+        
+        <!-- Select element for saluation -->
+        <select name="inputSelect" class="form-select" id="inputSelect"></select>
+        <label for="inputSelect">Salutation:</label>
+
+      </div>
+
+      <div class="form-floating">
+
+        <!-- Text element for name -->
+        <input type="text" class="form-control" id="inputName" placeholder="Name"/>
+        <label for="inputName">Name</label>
+
+      </div>
+
+      <!-- Button element to proces submission -->
+      <button class="mt-2 btn btn-success" onclick="ftnProcessName();">Submit</button>
+
+    </form>
+  </main>
+  
+  <!-- include the javascript statements from index.js -->
+  <script src="script.js"></script>
+
+  <script>
+
+    // retrieve the salutation values from arrow function ftnSaluation, store it as a const "arr"
+    const arr = ftnSalutation(); 
+    
+    // stores inputSelect object as "selectList", for options to be added later
+    const selectList = document.getElementById("inputSelect");
+
+    // add the 1st option to const "selectList" and set it to selected by default
+    selectList.options[0] = new Option("Please select", "");
+    selectList.options[0].selected = true;
+
+    // use a for loop to iterate through array "arr" to populate selectList
+    for (let index = 0; index < arr.length; index++) {
+      selectList.options[index + 1] = new Option(arr[index], arr[index]);
+    }
+
+    // the onclick event handler from the button within the form
+    // executes ftnProcessName which in turn calls ftnGreeting
+    // to return a string as the result to be displayed via an alert
+    function ftnProcessName(){
+      const selectedChoice = document.getElementById("inputSelect").value;
+      const uName = document.getElementById("inputName").value;
+      
+      // invoke validateInputs here
+      const validated = validateInputs(selectedChoice, uName);
+
+      // discontinue and show alert if validateInputs returns false
+      if(!validated)
+        return alert("Please fill in the inputs correctly.");
+
+      // call ftnGreeting, pass in the "selectedChoice" and "uName"
+      const result = ftnGreeting(selectedChoice, uName);
+      alert(result);
+    }
+
+    // Challenge statement:
+    // Update ftnProcessName to call a function validateInput to validate the following:
+    // 1. check if a salutation from inputSelect is selected
+    // 2. check if the name is not empty
+    // 3. if both conditions are met, function validateInput returns a boolean true
+    // 4. else validateInputs returns a boolean false
+    // 5. if validateInputs returns false, invoke an alert to inform the user
+    // 6. finally, ftnGreeting should only be called if validateInputs returns true
+
+  </script>
+
+  <!-- Bootstrap JavaScript Library -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+
+</body>
+</html>
+
+<!-- long form -->
+<!-- for line 44 -->
+<!--  
+  const addressee = arr[index];
+  var option = document.createElement("option");
+  option.text = addressee;
+  select.add(option, select[index]);  
+-->
