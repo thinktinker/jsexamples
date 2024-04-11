@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- Bootstrap Styles -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+</head>
+<body>
+  <main class="d-flex justify-content-center ">
+    <form class="m-3 rounded-2 border border-secondary p-3 w-50">
+
+      <div class="form-floating mb-3">
+        
+        <!-- Select element for saluation -->
+        <select name="inputSelect" class="form-select" id="inputSelect"></select>
+        <label for="inputSelect">Salutation:</label>
+
+      </div>
+
+      <div class="form-floating mb-3">
+
+        <!-- Text element for name -->
+        <input type="text" class="form-control" id="inputName" placeholder="Name"/>
+        <label for="inputName">Name</label>
+
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label"><strong>Meal Preference:</strong></label>
+        <!-- Radio for schedule preference -->
+          <div class="form-check form-check-inline">
+
+            <!-- No preference -->
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioMeal" id="radioMealNone" value="None"
+              onclick="ftnRadioMeal('None')">
+              <label class="form-check-label" for="radioMeal">None</label>
+            </div>
+
+            <!-- Vegetarian -->
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioMeal" id="radioMealVeg" value="Vegetarian"
+              onclick="ftnRadioMeal('Vegetarian')">
+              <label class="form-check-label" for="radioMeal">Vegetarian</label>
+            </div>
+
+            <!-- Beef -->
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioMeal" id="radioMealBeef" value="Beef"
+              onclick="ftnRadioMeal('Beef')">
+              <label class="form-check-label" for="radioMeal">Beef</label>
+            </div>
+
+            <!-- Chicken -->
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioMeal" id="radioMealChicken" value="Beef"
+              onclick="ftnRadioMeal('Chicken')">
+              <label class="form-check-label" for="radioMeal">Chicken</label>
+            </div>
+
+      </div>
+
+      <!-- display the selected option -->
+      <div class="d-block h-20">
+        <p id="displayPreference" class="text-success"></p>
+      </div>
+
+      <!-- Button element to proces submission -->
+      <div class="d-block">
+        <button class="mt-2 btn btn-success" onclick="ftnProcessName();">Submit</button>
+      </div>
+      
+
+    </form>
+  </main>
+  
+  <!-- include the javascript statements from index.js -->
+  <script src="script.js"></script>
+
+  <script>
+
+    // retrieve the salutation values from arrow function ftnSaluation, store it as a const "arr"
+    const arr = ftnSalutation(); 
+    
+    // stores inputSelect object as "selectList", for options to be added later
+    const selectList = document.getElementById("inputSelect");
+
+    // add the 1st option to const "selectList" and set it to selected by default
+    selectList.options[0] = new Option("Please select", "");
+    selectList.options[0].selected = true;
+
+    // use a for loop to iterate through array "arr" to populate selectList
+    for (let index = 0; index < arr.length; index++) {
+      selectList.options[index + 1] = new Option(arr[index], arr[index]);
+    }
+
+    // the onclick event handler from the button within the form
+    // executes ftnProcessName which in turn calls ftnGreeting
+    // to return a string as the result to be displayed via an alert
+    function ftnProcessName(){
+      const selectedChoice = document.getElementById("inputSelect").value;
+      const uName = document.getElementById("inputName").value;
+      
+      // invoke validateInputs here
+      const validated = validateInputs(selectedChoice, uName);
+
+      //check if meal preference is selected
+      const mealPreference = document.getElementsByName("inlineRadioMeal");
+
+      //create a boolean, set the mealChecked to false (default)
+      let mealSelected = false; 
+
+      // loop through the mealPreference "radio buttons"
+      // so long as one of the radio buttons is selected, set mealSelected to true and break out of the loop
+      for (let index = 0; index < mealPreference.length; index++) {
+        if(mealPreference[index].checked){
+          mealSelected = true;
+          break;
+        }
+      }
+
+      // // discontinue and show alert if validateInputs returns false or mealSelected is false
+      // if(!validated || !mealSelected)
+      //   return alert("Please complete all inputs.");
+
+      // // call ftnGreeting, pass in the "selectedChoice" and "uName"
+      // const result = ftnGreeting(selectedChoice, uName);
+      // alert(result);
+
+      // using logical AND operation to ensure that name is validated == true AND mealSelected == true 
+      if(validated && mealSelected){
+        // call ftnGreeting, pass in the "selectedChoice" and "uName"
+        const result = ftnGreeting(selectedChoice, uName);
+        return alert(result);
+      }
+
+      return alert("Please complete all inputs.");
+
+    }
+
+  </script>
+
+  <!-- Bootstrap JavaScript Library -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+
+</body>
+</html>
+
+<!-- long form -->
+<!-- for line 44 -->
+<!--  
+  const addressee = arr[index];
+  var option = document.createElement("option");
+  option.text = addressee;
+  select.add(option, select[index]);  
+-->
