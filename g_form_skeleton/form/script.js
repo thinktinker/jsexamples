@@ -3,25 +3,16 @@
 
 // Create the array to populate selectDom
 
-
 // Create the array to store selected values (for submission)
-
 
 // Declare constant selectDom to refer to <select> of id = "selectTopics"
 
-
 // Set the attributes of selectDom
-
 
 // Populate the options in selectDom
 
-
 // 11. element.getAttribute()
 // get the Attributes's value(s) of selected options
-selectDom.addEventListener("change", () => {
-
-    
-})
 
 // 12. element.addEventListener()
 // Adding an event listener to a button
@@ -29,7 +20,3 @@ selectDom.addEventListener("change", () => {
 // Clear the selection from listSelected and arrSelected
 // Use the splice method to remove all elements in an array
 
-
-// Challenge Statement:
-
-// 1. Change script.js to allow only 1 selected item
