@@ -5,8 +5,8 @@ const feedbackGuess = "Guess the number.";
 const feedbackCorrect = "You are correct!!";
 const feedbackQuit = " (Press q or Q to quit)";
 const feedbackEmpty = "Your answer is empty. Please try again." + feedbackQuit; 
-const feedbackTooHigh = "Your answer is too high! Try again."; + feedbackQuit
-const feedbackTooLow = "Your answer is too low! Try again." + feedbackQuit
+const feedbackTooHigh = "Your answer is too high! Try again."; + feedbackQuit;
+const feedbackTooLow = "Your answer is too low! Try again." + feedbackQuit;
 const feedbackWrong =  "Wrong answer. Guess again." + feedbackQuit;
 
 // Additional references: converting if-else chain to switch case statements
@@ -43,7 +43,7 @@ while(userInput.toUpperCase() !== "Q"){ // as long as the user doesn't enter 'q'
             break;
 
         case (userInput < ans):
-            userFeedback = feedbackTooHigh;
+            userFeedback = feedbackTooLow;
             correctAns = false;
             break;
         
