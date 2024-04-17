@@ -85,6 +85,7 @@ function loadColorsFromStorage() {
 
 }
 
-
-fetchColorsList();
-loadColorsFromStorage();
+document.addEventListener("DOMContentLoaded", () => {
+  fetchColorsList();
+  loadColorsFromStorage();
+})
