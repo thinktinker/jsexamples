@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap Styles -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <title>Event Registration Form</title>
+</head>
+<body> 
+        <!-- toast section -->
+        <!-- https://getbootstrap.com/docs/5.3/components/toasts/ -->
+        <!-- Flexbox container for aligning the toasts -->
+        <section class="d-block" style="height:50px">
+            <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+                <!-- Put toasts within -->
+                <div id="msg-toast" class="toast align-items-center mt-2" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="4000">
+                    <div class="d-flex">
+                      <div id="msg-toast-body" class="toast-body"> 
+                      <!-- Message to be added here -->
+                     </div>
+                      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <!-- If return value is true, then the form submission can continue.  -->
+        <!-- Registration form -->
+        <!-- form section -->
+        <section class="container w-50">
+            <h1 class="my-2 fs-4 text-center">Sign up with us.</h1>                       
+                <form name="registerForm" method="post" action="" class="needs-validation" novalidate onsubmit="return submitForm();"> 
+                    
+                    <div class="row border border-2 p-2 rounded-4">
+
+                        <!-- txtFirstName -->
+                        <div class="col-6 form-group my-2">
+                            <label for="txtFirstName" class="form-label">First name</label>
+                            <input type="text" class="form-control" id="txtFirstName" name="txtFirstName" placeholder="e.g. John" required>
+                        </div>
+
+                        <!-- txtLastName -->
+                        <div class="col-6 form-group my-2">
+                            <label for="txtLastName" class="form-label">Last name</label>
+                            <input type="text" class="form-control" id="txtLastName" name="txtLastName" placeholder="e.g. Doe" required>
+                        </div>
+
+                        <!-- txtEmail -->
+                        <div class="col-12 form-group my-3">
+                            <label for="txtEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="e.g. johndoe@gmail.com" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success btn-block mx-auto">Register</button>
+                    </div>    
+                </form>   
+            </section>
+
+            <!-- display only when form is submitted successfully -->
+            <section class="d-block w-50 mx-auto" style="height: 80px;">
+                <p id="displaySubmissionCompleted" class="text-center text-success"></p>
+            </section>
+
+    <!-- Bootstrap JavaScript Library -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+
+    <!-- validate the inputs -->
+    <script src="./validation.js"></script>
+    <script>
+        // https://getbootstrap.com/docs/5.3/forms/validation/
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+        })()
+    </script>
+    <script>  
+        // custom function (eventHandler) that reacts to onsubmit event within the form
+        function submitForm(){  
+            event.preventDefault();
+            const firstName = document.getElementById("txtFirstName").value; 
+            const lastName = document.getElementById("txtLastName").value; 
+            const email = document.getElementById("txtEmail").value;
+
+            if (!isEmpty(firstName) && !isEmpty(lastName) && isEmail(email))
+            {
+                showToast({bgColor: "success" , msg: "Thank you. We will contact you soon."});
+                document.getElementById("displaySubmissionCompleted").textContent = "Form Submitted successfuly.";
+                // route to another url to process the submitted information
+                return;
+            }else{
+                showToast({bgColor: "danger" , msg: "Please complete in the form below."});
+                document.getElementById("displaySubmissionCompleted").textContent = "";
+                return;
+            }
+        } 
+    
+        function showToast({bgColor, msg}){
+            // Run BootStrap5's toast to show the activity is complete.
+            const toastEl = document.getElementById("msg-toast");
+            const toastBody = document.getElementById("msg-toast-body");
+            toastEl.classList.remove("bg-success"); //remove all known and used colors here first
+            toastEl.classList.remove("bg-danger");  //remove all known and used colors here first
+            toastEl.classList.add(`bg-${bgColor}`);
+            toastEl.classList.add("text-white");
+            toastBody.textContent = msg;
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+
+    </script>
+
+</body>
+</html>
