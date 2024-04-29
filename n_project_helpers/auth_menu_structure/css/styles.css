@@ -1,0 +1,13 @@
+/* universal setting */
+*,*::before,*::after{
+    margin:0;
+    padding:0;
+  }
+  
+html{
+box-sizing:border-box;
+}
+  
+.bg-primary{
+background-color: #7c11f8 !important; /* !important rule overrides the original .bg-primary property */
+}

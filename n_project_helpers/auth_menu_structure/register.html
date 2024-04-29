@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap Styles -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="./css/styles.css" />
+
+    <title>Registration Form</title>
+</head>
+<body> 
+    <!-- toast section -->
+    <!-- https://getbootstrap.com/docs/5.3/components/toasts/ -->
+    <!-- Flexbox container for aligning the toasts -->
+    <section class="d-block" style="height:40px">
+        <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+            <!-- Put toasts within -->
+            <div id="msg-toast" class="toast align-items-center mt-2" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="4000">
+                <div class="d-flex">
+                    <div id="msg-toast-body" class="toast-body"> 
+                    <!-- Message to be added here -->
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <header class="container-lg p-2 mb-4">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary rounded-4 m-2" aria-label="site navigation bar">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Bootstrap_logo.svg" alt="" width="36" height="28">
+                </a>
+
+                <!-- Burger Menu that targets the navigation with the id sitMenu -->
+                <button class="navbar-toggler" type="button" result-bs-toggle="collapse" result-bs-target="#siteMenu" aria-controls="siteMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="siteMenu">
+                    <!-- Dynamic menu goes here -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Registration form -->
+    <!-- form section -->
+    <section class="container w-50 pt-4 border border-2 rounded-4">                     
+        <form name="registerForm" method="post" action="" class="needs-validation" novalidate onsubmit="return submitForm();"> 
+            <img class="mb-4" src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Bootstrap_logo.svg" alt="" width="72" height="57">
+            <h1 class="h3 mb-3 fw-normal">Please register here.</h1>
+        
+            <div class="form-floating">
+                <input type="email" class="form-control" id="txtEmail" placeholder="name@example.com" value="john@doe.com" required>
+                <label for="txtEmail">Email address</label>
+                <div class="d-block">
+                <small class="invalid-feedback text-danger ps-2">Please enter a valid email.</small>
+                </div>
+            </div>
+            <div class="form-floating my-3">
+                <input type="password" class="form-control" id="txtPassword" placeholder="Password" value="1a2A3A4!" required>
+                <label for="txtPassword">Password</label>
+                <div class="d-block">
+                <small class="invalid-feedback text-danger ps-2">Password should contain an uppercase, lowercase, number and special character.</small>
+                </div>
+            </div>
+        
+            <div class="form-floating my-3 text-center">
+                <button class="btn btn-success w-25 py-2" type="submit">Sign Up</button>
+            </div>
+            
+            <p id="displaySubmissionCompleted" class="text-center text-success fw-bold"></p>    
+            </form>        
+    </section>
+
+
+    <!-- Bootstrap JavaScript Library -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+
+    <!-- Include the nav controller -->
+    <script src="./src/NavController.js"></script>
+    <!-- Validate the inputs -->
+    <script src="./src/validation.js"></script>
+    <script>  
+
+        // declare the toast element and toast body
+        const toastElement = document.getElementById("msg-toast");
+        const toastBodyElement = document.getElementById("msg-toast-body");
+
+        // declare an array for all invalid-feedback ids
+        const invalidFeedback = document.getElementsByClassName("invalid-feedback");
+
+        // custom function that resets all invalid feedback
+        function resetValidFeedback(){
+            for (let i = 0; i < invalidFeedback.length; i++) {
+                invalidFeedback[i].style.display = "none";
+            }
+        };
+
+        // eventListener to hide all invalid-feedback after the page contents loads and instantiate the navController
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // Instantiate an instance of the siteMenu
+            const navController = new NavController("siteMenu");
+            navController.displayNav();
+
+            // Hide all invalid-feedback ids after the page's content loads
+            resetValidFeedback();
+            return;
+        });
+
+        // execute a anonymous function to create eventlisteners to vallidate each text input
+        (()=>{
+            const forms = document.querySelectorAll('.needs-validation');
+            const form = forms[0];
+            Array.from(form.elements).forEach(input => {
+                if(input.type != "submit")
+                {
+
+                    document.getElementById(input.id).addEventListener("input", (event) => {
+                    
+                    const index = (event.target.id == "txtEmail") ? 0 : 1;
+
+                    invalidFeedback[index].style.display = "none";
+                    if(!index){
+                        if(!isEmail(event.target.value))
+                            return invalidFeedback[index].style.display = "block";
+                    }else{
+                        if(!isPassword(event.target.value))
+                            return invalidFeedback[index].style.display = "block";
+                    }
+                    
+                    });
+
+                }
+            })
+        })();
+
+
+        // custom function (eventHandler) that reacts to onsubmit event within the form
+        function submitForm(){  
+            
+            event.preventDefault();
+            const email = document.getElementById("txtEmail");
+            const password = document.getElementById("txtPassword"); 
+            const form = document.querySelector('.needs-validation');
+            
+            if (!isEmail(email.value) || !isPassword(password.value))
+            {
+                form.classList.remove('was-validated');
+                showToast({toastElement, toastBodyElement, bgColor: "danger" , msg: "Pleas complete the form below."});
+                document.getElementById("displaySubmissionCompleted").textContent = "";
+                return;
+            }
+
+            // form.classList.add('was-validated');
+            // showToast({toastElement, toastBodyElement, bgColor: "success" , msg: "Thank you. We will contact you soon."});
+            // document.getElementById("displaySubmissionCompleted").textContent = "Please check your email to verify your account.";
+            // Statements to process the form here
+
+            // OR 
+            
+            // Comement the above and uncomment below to route to another url to process the submitted information
+
+            var url = window.location.origin;
+            url += "/login.html";
+            if(url.indexOf("?") > 0) {
+            url = url.substring(0, url.indexOf("?"));
+            } 
+            url += "?joined=true";
+            window.location.replace(url);
+
+            return;
+
+        }
+
+    </script>
+
+</body>
+</html>
