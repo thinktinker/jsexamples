@@ -10,7 +10,7 @@ const PLAYER = "*";
 const WIN = "";                                                                 // TODO: customise message when player wins
 const LOST = "";                                                                // TODO: customise message when player lose
 const OUT = "";                                                                 // TODO: customise message when player is out of bounds (lose)
-const QUIT = "Game Ended."                                                      // TODO: customise message when player quits
+const QUIT = ""                                                                 // TODO: customise message when player quits
 
 class Field{
 
@@ -58,7 +58,7 @@ class Field{
 
 
         /* 
-        TODO: otherwise, move player on the map: field[rowindex][colindex] = CARROT;
+        TODO: otherwise, move player on the map: field[rowindex][colindex] = PLAYER;
         update the display to show the user had moved to the new area on map
         ask for player's next move as well 
         */
