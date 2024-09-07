@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1. Promise chaining to fetch our pokemon data from pokemon API
+        fetch("https://pokeapi.co/api/v2/pokemon?limit=5") // call pokeapi
+        .then(response => response.json())                 // return the fulfilled response as json()
+        .then(data => {                                    // unwrap the json (data) and log it 
+            console.log("Success", data)
+        })
+        .catch((error)=>{
+            console.log("Unable to fetch Pokemons. Reason:", error.message);
+        })
+
+        // 2. ES7 approach of using async/await to handle promises
+        async function fetchPokemonData(){
+            try {
+                const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=50");
+                const data = await response.json();
+                console.log(data);
+            } catch (error) {
+                console.error("Error", error.message);
+            }
+        }
+
+        fetchPokemonData();
+
+        // 3. Also an ES7 approach using async/await to handle promises
+        const fetchPokemonData = async() => {
+            try {
+                const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=50");
+                const data = await response.json();
+                console.log("Arrow function to handle promise.")
+                console.log(data);
+            } catch (error) {
+                console.error("Error:", error.message);
+            }
+        }
+
+        fetchPokemonData();
+
+    </script>
+</body>
+</html>

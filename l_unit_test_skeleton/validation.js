@@ -4,6 +4,8 @@
 function isEmpty(value){
     // Fill in the validation condition using regular expressions
     // And return the results
+    var regex = new RegExp(/^(?=\s*$)/g);
+    return (!value || regex.test(value));
 };
 
 // 2. Example regular expression: isEmail
@@ -12,7 +14,11 @@ function isEmpty(value){
 function isEmail(value){
     // Fill in the validation condition using regular expressions
     // AND return the results
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(value);
 }
+
+module.exports = {isEmpty, isEmail};
 
 // Further reading: 
 // 1. Puppeteer library: https://jestjs.io/docs/puppeteer
